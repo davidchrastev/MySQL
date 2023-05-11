@@ -1,2 +1,4 @@
 ALTER TABLE users
-MODIFY COLUMN last_login_time DATETIME DEFAULT now();
+MODIFY COLUMN last_login_time DATETIME DEFAULT NOW();
+
+SELECT * FROM users;
