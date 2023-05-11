@@ -1,0 +1,2 @@
+-- TABLE minions;
+-- DROP TABLE towns;
