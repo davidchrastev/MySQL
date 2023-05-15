@@ -3,4 +3,5 @@ USE geography;
 SELECT
     peak_name
 FROM
-    peaks;
+    peaks
+ORDER BY peak_name;
