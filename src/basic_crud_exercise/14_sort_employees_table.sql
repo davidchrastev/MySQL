@@ -1,6 +1,7 @@
 USE soft_uni;
 
-SELECT * FROM employees
+SELECT *
+FROM employees
 ORDER BY
     salary DESC,
     first_name,
