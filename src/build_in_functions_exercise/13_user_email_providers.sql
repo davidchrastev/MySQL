@@ -1,8 +1,10 @@
 USE diablo;
 
+
 SELECT
     user_name,
-    SUBSTR(email, LOCATE('@', 'email') + 1) AS 'Email Provider'
+    SUBSTRING(email, locate('@', email) + 1)
+        AS 'email provider'
 FROM users
-ORDER BY `Email Provider`,
+ORDER BY `email provider`,
          user_name;
