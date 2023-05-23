@@ -21,10 +21,10 @@ CREATE TABLE `employees` (
 );
 
 ALTER TABLE `projects`
-ADD CONSTRAINT fk_client
-FOREIGN KEY (`client_id`) REFERENCES `clients`(`id`),
 ADD CONSTRAINT fk_employee
-FOREIGN KEY (`project_lead_id`) REFERENCES `employees`(`id`);
+FOREIGN KEY (`project_lead_id`) REFERENCES `employees`(`id`),
+ADD CONSTRAINT fk_client
+FOREIGN KEY (`client_id`) REFERENCES `clients`(`id`);
 
 ALTER TABLE `employees`
 ADD CONSTRAINT fk_project
