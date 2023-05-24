@@ -9,7 +9,7 @@ CREATE TABLE `manufacturers` (
 INSERT INTO `manufacturers` (`name`, `established_on`)
 VALUES ('BMW', '1916-03-01'),
        ('Tesla', '2003-01-01'),
-       ('Lada', '1996-05-01');
+       ('Lada', '1966-05-01');
 
 CREATE TABLE `models` (
     `model_id` INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
