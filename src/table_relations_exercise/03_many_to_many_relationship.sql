@@ -1,13 +1,11 @@
 USE `table_relations`;
 
-CREATE TABLE `students`
-(
+CREATE TABLE `students` (
     `student_id` INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
     `name`       VARCHAR(30)        NOT NULL
 );
 
-CREATE TABLE `exams`
-(
+CREATE TABLE `exams` (
     `exam_id` INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
     `name`    VARCHAR(30)
 );
@@ -15,8 +13,7 @@ CREATE TABLE `exams`
 ALTER TABLE `exams`
     AUTO_INCREMENT = 101;
 
-CREATE TABLE `students_exams`
-(
+CREATE TABLE `students_exams` (
     `student_id` INT,
     `exam_id`    INT,
     CONSTRAINT pk_students_exams
