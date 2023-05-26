@@ -5,6 +5,6 @@ SELECT
     `first_name`,
     `last_name`,
     `department_id`,
-    ROUND(`salary`) AS `salary`
+    ROUND(`salary`, 4) AS `salary`
 FROM employees
 WHERE manager_id IS NULL;
