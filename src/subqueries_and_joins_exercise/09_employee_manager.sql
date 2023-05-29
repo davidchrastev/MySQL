@@ -1,11 +1,15 @@
 USE `soft_uni`;
 
 SELECT
-    e.`employee_id`,
-    e.`first_name`,
-    IF (YEAR(p.`start_date`) >= 2005, NULL, p.`name`) AS `project_name`
-FROM `employees` AS e
-JOIN `employees_projects` AS ep ON e.`employee_id` = ep.`employee_id`
-JOIN `projects` AS p ON ep.`project_id` = p.`project_id`
-WHERE e.`employee_id` = 24
-ORDER BY p.`name`;
+    `employee_id`,
+    `first_name`,
+    `manager_id`,
+    (SELECT first_name
+            FROM
+                employees WHERE e.manager_id = employee_id)
+FROM `employees` e
+WHERE `manager_id` IN (3, 7)
+ORDER BY `first_name`;
+
+
+
