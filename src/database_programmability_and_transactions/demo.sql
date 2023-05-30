@@ -1,0 +1,9 @@
+DELIMITER $$
+CREATE FUNCTION ufn_select_5()
+RETURNS INT
+    DETERMINISTIC
+BEGIN
+    RETURN 5;
+END $$;
+
+SELECT ufn_select_5();
