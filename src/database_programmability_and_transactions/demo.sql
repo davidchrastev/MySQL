@@ -20,3 +20,8 @@ BEGIN
 end $$;
 
 SELECT ufn_append_before('3 + 2 e');
+
+
+SET @test := 4;
+SET @test := 9;
+select @test;
