@@ -4,7 +4,7 @@ DELIMITER $$
 CREATE PROCEDURE usp_calculate_future_value_for_account(account_id INT, interest_per_year DECIMAL(19,4))
 BEGIN
     SELECT
-        ah.id,
+        ah.id AS 'acount_id',
         ah.first_name,
         ah.last_name,
         a.balance AS 'current_balance',
