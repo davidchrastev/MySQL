@@ -14,3 +14,5 @@ BEGIN
              `employee_id`;
 END $$
 DELIMITER ;
+
+CALL usp_get_employees_salary_above_35000();
