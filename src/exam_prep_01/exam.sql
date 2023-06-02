@@ -88,3 +88,55 @@ WHERE ( SELECT COUNT(*)
 
 ## QUERYING
 ## 03
+
+SELECT
+    id, first_name, last_name, birthdate, card, review
+FROM clients
+ORDER BY birthdate DESC;
+
+SELECT
+    first_name, last_name, birthdate, review
+FROM clients
+WHERE card IS NULL AND YEAR(birthdate) BETWEEN 1978 AND 1993
+ORDER BY
+    last_name DESC, id
+LIMIT 5;
+
+SELECT
+    CONCAT(last_name, first_name, CHAR_LENGTH(first_name), 'Restaurant') AS `username`,
+    REVERSE(SUBSTR(email, 2, 12)) AS `password`
+FROM waiters
+WHERE salary IS NOT NULL
+ORDER BY `password` DESC;
+
+
+SELECT p.id,
+       p.name,
+       COUNT(op.product_id) AS `count`
+FROM orders_products op
+         JOIN
+     products p ON p.id = op.product_id
+GROUP BY p.id,
+         p.name
+HAVING COUNT(op.product_id) >= 5
+ORDER BY `count` DESC,
+         p.name;
+
+SELECT
+    t.id,
+    capacity,
+    COUNT(oc.client_id) AS `count_clients`,
+    (IF(t.capacity > COUNT(oc.client_id), 'Free seats',
+        IF (capacity = COUNT(oc.client_id), 'Full', 'Extra seats'))
+        ) AS availability
+FROM
+    tables t
+        JOIN
+    orders o ON t.id = o.table_id
+        JOIN
+    orders_clients oc ON o.id = oc.order_id
+WHERE floor = 1
+GROUP BY
+    t.id
+ORDER BY
+    t.id DESC;
