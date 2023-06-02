@@ -11,7 +11,7 @@ BEGIN
     DECLARE FV DECIMAL(19, 4);
 
     SET FV := (
-        initial_sum * POW((1 + yearly_interest_rate), number_of_years)
+        FV = initial_sum * POW((1 + yearly_interest_rate), number_of_years)
     );
 
     RETURN FV;
