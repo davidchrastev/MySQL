@@ -169,6 +169,6 @@ BEGIN
     UPDATE products
         SET price = price * 0.8
     WHERE price >= 10;
-end $$
+END; $$
 
 DELIMITER ;
