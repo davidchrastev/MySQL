@@ -87,7 +87,6 @@ WHERE ( SELECT COUNT(*)
         WHERE waiter_id = w.id ) = 0;
 
 ## QUERYING
-## 03
 
 SELECT
     id, first_name, last_name, birthdate, card, review
@@ -126,7 +125,8 @@ SELECT
     t.id,
     capacity,
     COUNT(oc.client_id) AS `count_clients`,
-    (IF(t.capacity > COUNT(oc.client_id), 'Free seats',
+    (
+        IF(t.capacity > COUNT(oc.client_id), 'Free seats',
         IF (capacity = COUNT(oc.client_id), 'Full', 'Extra seats'))
         ) AS availability
 FROM
@@ -140,3 +140,35 @@ GROUP BY
     t.id
 ORDER BY
     t.id DESC;
+
+## PROGRAMABILITY
+
+DELIMITER $$
+CREATE function udf_client_bill(full_name VARCHAR(50))
+RETURNS DECIMAL(19,2)
+DETERMINISTIC
+BEGIN
+    DECLARE price DECIMAL(19,2);
+
+    SET price = (SELECT
+                     SUM(p.price)
+                 FROM clients c
+                          JOIN orders_clients oc on c.id = oc.client_id
+                          JOIN orders o on o.id = oc.order_id
+                          JOIN orders_products op on o.id = op.order_id
+                          JOIN products p on op.product_id = p.id
+                 WHERE CONCAT_WS(' ', c.first_name, c.last_name) = `full_name`);
+    RETURN price;
+END ;
+
+DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE udp_happy_hour(`type` VARCHAR(50))
+BEGIN
+    UPDATE products
+        SET price = price * 0.8
+    WHERE price >= 10;
+end $$
+
+DELIMITER ;
