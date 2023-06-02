@@ -2,6 +2,7 @@ CREATE DATABASE `restaurants`;
 
 USE `restaurants`;
 
+## DATA DEFINITION LANGUAGE (DDL)
 ## 01
 
 CREATE TABLE `products` (
@@ -67,7 +68,23 @@ CREATE TABLE `orders_products` (
         FOREIGN KEY (`product_id`) REFERENCES products(id)
 );
 
-## 01
+## DATA MANIPULATION LANGUAGE (DML)
 
+INSERT INTO products(name, type, price)
+  (SELECT CONCAT_WS(' ', last_name, 'specialty'),
+          'Cocktail'                             ,
+          CEILING(0.01 * salary)
+   FROM waiters
+   WHERE id > 6);
 
-## 02
+UPDATE `orders`
+SET table_id = table_id - 1
+WHERE id BETWEEN 12 AND 23;
+
+DELETE FROM `waiters` AS w
+WHERE ( SELECT COUNT(*)
+        FROM orders
+        WHERE waiter_id = w.id ) = 0;
+
+## QUERYING
+## 03
