@@ -2,7 +2,6 @@ CREATE DATABASE `imbd`;
 
 USE `imbd`;
 
-
 CREATE TABLE countries (
                            id INT AUTO_INCREMENT PRIMARY KEY,
                            name VARCHAR(30) NOT NULL UNIQUE,
