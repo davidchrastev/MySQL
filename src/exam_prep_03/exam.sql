@@ -82,3 +82,61 @@ WHERE o.customer_id IS NULL;
 
 SELECT * from categories c
 ORDER BY c.name desc;
+
+
+SELECT p.id, p.brand_id, p.name, p.quantity_in_stock
+FROM products p
+WHERE p.price > 1000 AND p.quantity_in_stock < 30
+ORDER BY p.quantity_in_stock, p.id;
+
+
+SELECT * FROM reviews r
+WHERE (SELECT r.content LIKE 'My%') AND LENGTH(r.content) > 61
+ORDER BY r.rating DESC ;
+
+
+SELECT CONCAT(c.first_name, ' ', c.last_name) as 'full_name', c.address, o.order_datetime
+FROM customers c JOIN orders o ON c.id = o.customer_id
+WHERE YEAR(o.order_datetime) <= 2018
+ORDER BY full_name DESC ;
+
+SELECT COUNT(c.id) as 'items_count', c.name, sum(p.quantity_in_stock) as 'total_quantity'
+FROM products p
+         JOIN categories c on c.id = p.category_id
+GROUP BY c.id
+ORDER BY `items_count` desc, total_quantity ASC
+LIMIT 5;
+
+
+DELIMITER $$
+CREATE FUNCTION udf_customer_products_count(name VARCHAR(30))
+    RETURNS INT
+    DETERMINISTIC
+BEGIN
+    DECLARE products_count INT;
+    SET products_count := (
+        SELECT COUNT(c.id) FROM customers c
+                                    JOIN orders o on c.id = o.customer_id
+                                    JOIN orders_products op on o.id = op.order_id
+        WHERE c.first_name = name);
+    RETURN products_count;
+end $$
+DELIMITER ;
+
+SELECT c.first_name, c.last_name, udf_customer_products_count('Shirley') as `total_products` FROM customers c
+WHERE c.first_name = 'Shirley';
+
+
+DELIMITER $$
+CREATE PROCEDURE `udp_reduce_price`(`category_name` VARCHAR(50))
+BEGIN
+    UPDATE products p
+        join reviews r on r.id = p.review_id
+        JOIN categories c on c.id = p.category_id
+    SET p.price = price * 0.70
+    WHERE c.name = category_name
+      AND r.rating < 4;
+END $$
+DELIMITER ;
+
+CALL udp_reduce_price('Phones and tablets');
