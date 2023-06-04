@@ -1,6 +1,5 @@
 CREATE DATABASE `online_store`;
 Use `online_store`;
-
 CREATE TABLE `customers`(
                             `id` INT PRIMARY KEY AUTO_INCREMENT,
                             `first_name` VARCHAR(20) NOT NULL,
