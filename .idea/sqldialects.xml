@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/src/data_definition_datatypes/demo.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/data_definition_datatypes_exercise/alter_minions_table_02.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/subqueries_and_joins_exercise/15_continents_and_currencies.sql" dialect="MySQL" />
+    <file url="PROJECT" dialect="MySQL" />
+  </component>
+</project>
