@@ -1,5 +1,6 @@
 USE `soft_uni`;
 
+
 DELIMITER $$
 
 DROP TABLE IF EXISTS `logs`$$
