@@ -2,6 +2,7 @@ CREATE DATABASE `universities_db`;
 
 USE `universities_db`;
 
+# 01
 
 CREATE TABLE `countries` (
     id   INT AUTO_INCREMENT PRIMARY KEY,
@@ -63,6 +64,7 @@ CREATE TABLE students_courses (
     FOREIGN KEY (course_id) REFERENCES courses (id)
 );
 
+# 02
 INSERT INTO courses (name, duration_hours, start_date, teacher_name, description, university_id)
 SELECT CONCAT(teacher_name, ' course') AS name,
        CHAR_LENGTH(name) / 10 AS duration_hours,
@@ -73,23 +75,28 @@ SELECT CONCAT(teacher_name, ' course') AS name,
 FROM courses
 WHERE id <= 5;
 
+# 03
 UPDATE universities
 SET tuition_fee = tuition_fee + 300
 WHERE id >= 5 AND id <= 12;
 
+# 04
 DELETE FROM universities
 WHERE number_of_staff IS NULL;
 
+# 05
 SELECT id, name, population, country_id
 FROM cities
 ORDER BY population DESC;
 
+# 06
 SELECT first_name, last_name, age, phone, email
 FROM students
 WHERE age >= 21
 ORDER BY first_name DESC, email, id
 LIMIT 10;
 
+# 07
 SELECT
     CONCAT(s.first_name, ' ', s.last_name) AS full_name,
     SUBSTRING(s.email, 2, 10) AS username,
@@ -99,7 +106,7 @@ LEFT JOIN students_courses sc on s.id = sc.student_id
 WHERE student_id IS NULL
 ORDER BY password DESC;
 
-
+# 08
 SELECT COUNT(sc.student_id) AS students_count, u.name AS university_name
 FROM universities u
          JOIN courses c ON u.id = c.university_id
@@ -108,7 +115,7 @@ GROUP BY u.id, u.name
 HAVING COUNT(sc.student_id) >= 8
 ORDER BY students_count DESC, university_name DESC;
 
-
+# 09
 SELECT u.name AS university_name, c.name AS city_name, u.address,
        CASE
            WHEN u.tuition_fee < 800 THEN 'cheap'
@@ -121,7 +128,7 @@ FROM universities u
          JOIN cities c ON u.city_id = c.id
 ORDER BY u.tuition_fee;
 
-
+# 10
 CREATE FUNCTION udf_average_alumni_grade_by_course_name(course_name VARCHAR(60))
     RETURNS DECIMAL(5, 2)
 BEGIN
@@ -136,6 +143,7 @@ BEGIN
     RETURN avg_grade;
 END;
 
+# 11
 CREATE PROCEDURE udp_graduate_all_students_by_year(IN year_started INT)
 BEGIN
     UPDATE students s
